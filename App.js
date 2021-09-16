@@ -7,6 +7,7 @@
  */
 
 import React from 'react';
+import Navigation from './navigation/Navigation';
 import {
   SafeAreaView,
   ScrollView,
@@ -18,9 +19,7 @@ import {
 } from 'react-native';
 
 const App = () => {
-  return (
-    
-  );
+  return <Navigation />;
 };
 
 const styles = StyleSheet.create({});

@@ -9,4 +9,5 @@ module.exports = {
       usePrettierrc: false,
     },
   ],
+  endOfLine: 'auto',
 };
