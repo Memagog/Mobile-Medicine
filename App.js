@@ -7,7 +7,6 @@
  */
 
 import React from 'react';
-import Navigation from './navigation/Navigation';
 import {
   SafeAreaView,
   ScrollView,
@@ -17,9 +16,25 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './Components/Home/Home';
+import Analytics from './Components/Analytics/Analytics';
+import Menu from './Components/Menu/Menu';
+import Health from './Components/Health/Health';
 
+const Stack = createNativeStackNavigator();
 const App = () => {
-  return <Navigation />;
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Analytics" component={Analytics} />
+        <Stack.Screen name="Menu" component={Menu} />
+        <Stack.Screen name="Heal" component={Health} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
 
 const styles = StyleSheet.create({});
