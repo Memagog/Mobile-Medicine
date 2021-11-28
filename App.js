@@ -22,18 +22,27 @@ import Home from './Components/Home/Home';
 import Analytics from './Components/Analytics/Analytics';
 import Menu from './Components/Menu/Menu';
 import Health from './Components/Health/Health';
+import { useEffect } from 'react';
+import { connect } from './database/index.db';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
+  useEffect(() => {
+    connect();
+  }, []);
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Analytics" component={Analytics} />
-        <Stack.Screen name="Menu" component={Menu} />
-        <Stack.Screen name="Heal" component={Health} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Analytics" component={Analytics} />
+          <Stack.Screen name="Menu" component={Menu} />
+          <Stack.Screen name="Heal" component={Health} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 
