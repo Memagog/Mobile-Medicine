@@ -47,7 +47,7 @@ const Health = () => {
         </Text>
       </TouchableOpacity>
       <View style={bloodAll ? styles.active : styles.disable}>
-        <ModalWindow view={bloodAll} text={'Общий развернутый анализ крови'} />
+        <ModalWindow view={bloodAll} text={'Общий анализ крови'} />
       </View>
       <TouchableOpacity
         onPress={() => setBloodBio(!bloodBio)}

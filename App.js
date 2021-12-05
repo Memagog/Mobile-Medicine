@@ -6,28 +6,30 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './Components/Home/Home';
-import Analytics from './Components/Analytics/Analytics';
-import Menu from './Components/Menu/Menu';
-import Health from './Components/Health/Health';
-import { useEffect } from 'react';
-import { connect } from './database/index.db';
+import React, { useEffect } from 'react';
+import { Image, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
+import Analytics from './Components/Analytics/Analytics';
+import Health from './Components/Health/Health';
+import Home from './Components/Home/Home';
+import Menu from './Components/Menu/Menu';
+import { connect } from './database/index.db';
 import { store } from './store/store';
 
 const Stack = createNativeStackNavigator();
+
+const style = {
+  headerStyle: {
+    backgroundColor: '#333',
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+};
+
 const App = () => {
   useEffect(() => {
     connect();
@@ -36,10 +38,14 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Analytics" component={Analytics} />
-          <Stack.Screen name="Menu" component={Menu} />
-          <Stack.Screen name="Heal" component={Health} />
+          <Stack.Screen name="Home" component={Home} options={style} />
+          <Stack.Screen
+            name="Analytics"
+            component={Analytics}
+            options={style}
+          />
+          <Stack.Screen name="Menu" component={Menu} options={style} />
+          <Stack.Screen name="Heal" component={Health} options={style} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
