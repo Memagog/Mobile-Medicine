@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 const initialState = {
   userData: {
     name: 'George Box',
-    born: '13 декабря 2000 г.',
+    born: '13.12.2000',
     city: 'г. Минск',
     gender: 'Мужчина',
   },
