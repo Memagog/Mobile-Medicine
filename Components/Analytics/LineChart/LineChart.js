@@ -19,6 +19,7 @@ const Line = props => {
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
         }}
         style={props.view ? { display: 'flex' } : { display: 'none' }}
+        bezier
       />
     </View>
   );

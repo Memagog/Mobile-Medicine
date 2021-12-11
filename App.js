@@ -12,6 +12,7 @@ import React, { useEffect } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import Analytics from './Components/Analytics/Analytics';
+import Analyze from './Components/Analyze/Analyze';
 import Health from './Components/Health/Health';
 import Home from './Components/Home/Home';
 import Menu from './Components/Menu/Menu';
@@ -46,6 +47,7 @@ const App = () => {
           />
           <Stack.Screen name="Menu" component={Menu} options={style} />
           <Stack.Screen name="Heal" component={Health} options={style} />
+          <Stack.Screen name="Analyze" component={Analyze} options={style} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

@@ -1,75 +1,22 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Button,
   DrawerLayoutAndroid,
-  Image,
-  SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Icon, ListItem, Overlay } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Diagram from './Diagrams/Diagram';
 import Line from './LineChart/LineChart';
 import Pie from './Pie/Pie';
 import Progress from './Progress/Progress';
 import Stackbar from './StackBar/StackBar';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-const data = {
-  // labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-  datasets: [
-    {
-      data: [20, 45, 28, 80, 99, 43],
-      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, // optional
-      strokeWidth: 2, // optional
-    },
-  ],
-  // legend: ['Rainy Days'], // optional
-};
-
-const data1 = {
-  labels: ['Swim', 'Bike', 'Run'], // optional
-  data: [0.4, 0.6, 0.8],
-};
-
-const data2 = {
-  labels: ['Test1', 'Test2'],
-  legend: ['L1', 'L2', 'L3'],
-  data: [
-    [60, 60, 60],
-    [30, 30, 60],
-  ],
-  barColors: ['#dfe4ea', '#ced6e0', '#a4b0be'],
-};
-
-const data4 = [
-  {
-    name: 'Protein',
-    population: 100,
-    color: 'rgba(131, 167, 234, 1)',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 14,
-  },
-  {
-    name: 'Carbohydrate',
-    population: 200,
-    color: '#900',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 14,
-  },
-  {
-    name: 'Lipids',
-    population: 80,
-    color: '#444',
-    legendFontColor: '#7F7F7F',
-    legendFontSize: 14,
-  },
-];
+import { data1, data2, data4, data_1d, data_7d } from './testData/data';
 
 const Analytics = () => {
   const [line, setLine] = useState(true);
@@ -78,8 +25,30 @@ const Analytics = () => {
   const [progress, setProgress] = useState(false);
   const [stack, setStack] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [time, setTime] = useState('1d');
+  const [chartData, setChartData] = useState(data_1d);
   const drawer = useRef(null);
   const [drawerPosition, setDrawerPosition] = useState('left');
+
+  useEffect(() => {
+    switch (time) {
+      case '1d':
+        setChartData(data_1d);
+        break;
+      case '7d':
+        setChartData(data_7d);
+        break;
+      case '15d':
+        setChartData(data_1d);
+        break;
+      case '1m':
+        setChartData(data_1d);
+        break;
+      default:
+        setChartData(data_1d);
+        break;
+    }
+  }, [time]);
 
   const selectLineChart = () => {
     setLine(true);
@@ -212,11 +181,13 @@ const Analytics = () => {
         <View style={styles.buttonGroup}>
           <TouchableOpacity
             style={{ padding: 10, margin: 10, backgroundColor: '#333' }}
+            onPress={() => setTime('1d')}
           >
             <Text style={{ color: 'white' }}>1d</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{ padding: 10, margin: 10, backgroundColor: '#333' }}
+            onPress={() => setTime('7d')}
           >
             <Text style={{ color: 'white' }}>7d</Text>
           </TouchableOpacity>
@@ -232,11 +203,33 @@ const Analytics = () => {
           </TouchableOpacity>
         </View>
         <View style={{ paddingTop: 30 }}>
-          <Line data={data} view={line} />
-          <Diagram data={data} view={diagram} />
+          <Line data={chartData} view={line} />
+          <Diagram data={chartData} view={diagram} />
           <Pie data={data4} view={pie} />
           <Progress data={data1} view={progress} />
           <Stackbar data={data2} view={stack} />
+        </View>
+        <View style={styles.infoBlock}>
+          <View style={styles.infoText}>
+            <Text style={styles.text2}>Дополнительная информация</Text>
+          </View>
+          {/* <View style={styles.infoText}>
+            <Text style={styles.text2}>описание</Text>
+          </View> */}
+          <View>
+            <Text style={styles.text2}>описание</Text>
+          </View>
+        </View>
+        <View style={styles.infoBlock}>
+          <View style={styles.infoText2}>
+            <Text style={styles.text2}>Дополнительная данные</Text>
+          </View>
+          {/* <View style={styles.infoText}>
+            <Text style={styles.text2}>описание</Text>
+          </View> */}
+          <View>
+            <Text style={styles.text2}>описание</Text>
+          </View>
         </View>
       </View>
     </DrawerLayoutAndroid>
@@ -274,6 +267,17 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 5,
+  },
+  infoBlock: {
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    padding: 20,
+  },
+  infoText: {
+    paddingRight: 90,
+  },
+  infoText2: {
+    paddingRight: 120,
   },
 });
 

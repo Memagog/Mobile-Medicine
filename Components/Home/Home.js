@@ -22,7 +22,7 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.size}
-          onPress={() => navigation.navigate('Heal')}
+          onPress={() => navigation.navigate('Analyze')}
         >
           <FontAwesome5Icon name="notes-medical" size={60} color="#900" />
         </TouchableOpacity>
